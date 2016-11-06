@@ -1,6 +1,16 @@
 import Botkit from 'botkit';
+import environment from 'dotenv';
+import logger from 'loglevel';
 
-require('dotenv').config();
+import handleTest from 'handlers/handleTest';
+import handleSort from 'handlers/handleSort';
+import handleListHouses from 'handlers/handleListHouses';
+
+environment.config();
+
+logger.setLevel(process.env.LOG_LEVEL);
+
+const MESSAGE_TYPES = ['direct_message', 'direct_mention'];
 
 const controller = Botkit.slackbot({
   debug: false,
@@ -10,34 +20,14 @@ controller.spawn({
   token: process.env.BOT_TOKEN,
 }).startRTM();
 
-controller.hears('test', ['direct_message', 'mention'], (bot, message) => {
-  bot.reply(message, 'Working!');
-});
+controller.hears('test', MESSAGE_TYPES, handleTest);
+controller.hears('sort (.+) (.+)', MESSAGE_TYPES, handleSort);
 
-const houses = {
-  slytherin: {
-    name: 'slytherin',
-    users: [],
-    points: 0,
-  },
-  gryffindor: {
-    name: 'gryffindor',
-    users: [],
-    points: 0,
-  },
-};
+controller.hears('list houses', MESSAGE_TYPES, handleListHouses);
 
-controller.hears('sort (.+) (.+)', ['direct_message', 'mention'], (bot, message) => {
-  bot.reply(message, 'Sorted');
-  const { match } = message;
-  const user = match[1];
-  const house = match[2];
-
-  if (!houses[house].users.includes(user)) houses[house].users.push(user);
-
-  bot.reply(message, `Sorted ${user} in house ${house}`);
-});
-
-controller.hears('list houses', ['direct_message', 'mention'], (bot, message) => {
-  bot.reply(message, JSON.stringify(houses));
-});
+// award [number] point(s) to [user]
+// which house [user]
+// show points
+// show points for [house | user]
+// show members of [house]
+// add house [house]
