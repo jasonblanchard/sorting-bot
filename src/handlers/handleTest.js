@@ -2,7 +2,7 @@ import logger from 'loglevel';
 
 export default function(bot, message) {
   try {
-    logger.info({ message });
+    logger.info({ message, bot });
 
     bot.reply(message, 'Working!');
   } catch (error) {
