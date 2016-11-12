@@ -1,6 +1,6 @@
 import logger from 'loglevel';
 
-import houses from 'mockData.js';
+import houses from 'src/mockData.js';
 
 export default function(bot, message) {
   logger.info({ message });

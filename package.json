@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_PATH=. nodemon --exec babel-node index.js"
+    "start": "NODE_PATH=. nodemon --exec babel-node src/index.js"
   },
   "author": "Jason Blanchard <jas.blanchard@gmail.com>",
   "license": "ISC",
@@ -21,6 +21,7 @@
   "dependencies": {
     "botkit": "^0.4.0",
     "dotenv": "^2.0.0",
-    "loglevel": "^1.4.1"
+    "loglevel": "^1.4.1",
+    "mongoose": "^4.6.7"
   }
 }

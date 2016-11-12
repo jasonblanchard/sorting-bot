@@ -2,9 +2,9 @@ import Botkit from 'botkit';
 import environment from 'dotenv';
 import logger from 'loglevel';
 
-import handleTest from 'handlers/handleTest';
-import handleSort from 'handlers/handleSort';
-import handleListHouses from 'handlers/handleListHouses';
+import handleTest from 'src/handlers/handleTest';
+import handleSort from 'src/handlers/handleSort';
+import handleListHouses from 'src/handlers/handleListHouses';
 
 environment.config();
 
