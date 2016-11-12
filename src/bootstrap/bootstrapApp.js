@@ -17,7 +17,6 @@ export default function(registry) {
 
   controller.hears('test', MESSAGE_TYPES, handleTest);
   controller.hears('sort (.+) (.+)', MESSAGE_TYPES, handleSort);
-
   controller.hears('list houses', MESSAGE_TYPES, handleListHouses);
 
   // award [number] point(s) to [user]
@@ -27,6 +26,7 @@ export default function(registry) {
   // show members of [house]
   // add house [house]
 
+  // TODO: Move this all to the OAuth process instead of hard-coding
   const app = controller.spawn({
     token: process.env.BOT_TOKEN,
   });
