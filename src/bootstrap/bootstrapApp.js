@@ -31,7 +31,7 @@ export default function(registry) {
     token: process.env.BOT_TOKEN,
   });
 
-  botService.create({ token: process.env.BOT_TOKEN });
+  botService.register({ token: process.env.BOT_TOKEN });
 
   return {
     start: () => app.startRTM(),
