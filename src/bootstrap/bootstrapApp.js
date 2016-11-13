@@ -1,12 +1,7 @@
 import Botkit from 'botkit';
 
-// TODO: Move handlers to bootstrap;
-import handleTest from 'src/handlers/handleTest';
-import handleSort from 'src/handlers/handleSort';
-import handleListHouses from 'src/handlers/handleListHouses';
-
 export default function(registry) {
-  const { logger, botService } = registry;
+  const { logger, botService, handleTest, handleListHouses, handleSort } = registry;
   logger.debug('\n>>> BOOTSTRAPPING <<<\n');
 
   const MESSAGE_TYPES = ['direct_message', 'direct_mention'];
@@ -15,9 +10,9 @@ export default function(registry) {
     debug: false,
   });
 
-  controller.hears('test', MESSAGE_TYPES, handleTest);
-  controller.hears('sort (.+) (.+)', MESSAGE_TYPES, handleSort);
-  controller.hears('list houses', MESSAGE_TYPES, handleListHouses);
+  controller.hears('test', MESSAGE_TYPES, handleTest.handle);
+  controller.hears('sort (.+) (.+)', MESSAGE_TYPES, handleSort.handle);
+  controller.hears('list houses', MESSAGE_TYPES, handleListHouses.handle);
 
   // award [number] point(s) to [user]
   // which house [user]
@@ -34,6 +29,10 @@ export default function(registry) {
   botService.register({ token: process.env.BOT_TOKEN });
 
   return {
-    start: () => app.startRTM(),
+    start: () => app.startRTM((error, bot) => {
+      if (error) {
+        logger.error({ error, bot });
+      }
+    }),
   };
 }

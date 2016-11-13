@@ -1,12 +1,17 @@
-import logger from 'loglevel';
+export default class HandleTest {
+  constructor(logger) {
+    this._logger = logger;
+    this.handle = this.handle.bind(this);
+  }
 
-export default function(bot, message) {
-  try {
-    logger.info({ message, bot });
+  handle(bot, message) {
+    try {
+      this._logger.debug({ message, this: this });
 
-    bot.reply(message, 'Working!');
-  } catch (error) {
-    bot.reply(message, 'Something went wrong');
-    logger.error(error);
+      bot.reply(message, 'Working!');
+    } catch (error) {
+      bot.reply(message, 'Something went wrong');
+      this._logger.error(error);
+    }
   }
 }

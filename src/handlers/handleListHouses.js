@@ -1,9 +1,14 @@
-import logger from 'loglevel';
-
 import houses from 'src/mockData.js';
 
-export default function(bot, message) {
-  logger.info({ message });
+export default class handleListHouses {
+  constructor(logger) {
+    this._logger = logger;
+    this.handle = this.handle.bind(this);
+  }
 
-  bot.reply(message, JSON.stringify(houses));
+  handle(bot, message) {
+    this._logger.info({ message });
+
+    bot.reply(message, JSON.stringify(houses));
+  }
 }

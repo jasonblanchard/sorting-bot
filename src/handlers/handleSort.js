@@ -1,17 +1,22 @@
-import logger from 'loglevel';
-
 import houses from 'src/mockData';
 
-export default function(bot, message) {
-  logger.info({ message });
+export default class HandleSort {
+  constructor(logger) {
+    this._logger = logger;
+    this.handle = this.handle.bind(this);
+  }
 
-  const { match } = message;
-  const user = match[1];
-  const house = match[2];
+  handle(bot, message) {
+    this._logger.info({ message });
 
-  // TODO: If !house, sort into one of the lease-full houses.
+    const { match } = message;
+    const user = match[1];
+    const house = match[2];
 
-  if (!houses[house].users.includes(user)) houses[house].users.push(user);
+    // TODO: If !house, sort into one of the lease-full houses.
 
-  bot.reply(message, `Sorted ${user} in house ${house}`);
+    if (!houses[house].users.includes(user)) houses[house].users.push(user);
+
+    bot.reply(message, `Sorted ${user} in house ${house}`);
+  }
 }

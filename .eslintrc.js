@@ -11,5 +11,6 @@ module.exports = {
       "import/extensions": 0,
       "import/no-extraneous-dependencies": 0,
       "no-underscore-dangle": 0,
+      "arrow-parens": 0,
     }
 };

@@ -14,4 +14,8 @@ export default class LoggerService {
   debug(message) {
     this._logger.debug(message);
   }
+
+  error(message) {
+    this._logger.error(message);
+  }
 }
