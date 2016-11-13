@@ -1,7 +1,7 @@
 import Botkit from 'botkit';
 
 export default function(registry) {
-  const { logger, botService, handleTest, handleListHouses, handleSort } = registry;
+  const { logger, teamService, handleTest, handleListHouses, handleSort } = registry;
   logger.debug('\n>>> BOOTSTRAPPING <<<\n');
 
   const MESSAGE_TYPES = ['direct_message', 'direct_mention'];
@@ -26,13 +26,17 @@ export default function(registry) {
     token: process.env.BOT_TOKEN,
   });
 
-  botService.register({ token: process.env.BOT_TOKEN });
 
   return {
     start: () => app.startRTM((error, bot) => {
       if (error) {
         logger.error({ error, bot });
+        return;
       }
+      const token = bot.config.token;
+      const teamId = bot.team_info.id;
+      logger.debug({ bot: { token, teamId } });
+      teamService.register({ token, teamId });
     }),
   };
 }

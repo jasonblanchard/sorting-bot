@@ -1,7 +1,7 @@
 import Bottle from 'bottlejs';
 
 import bootstrapApp from './bootstrapApp';
-import bootstrapBotService from './bootstrapBotService';
+import bootstrapTeamService from './bootstrapTeamService';
 import bootstrapHandleListHouses from './bootstrapHandleListHouses';
 import bootstrapHandleSort from './bootstrapHandleSort';
 import bootstrapHandleTest from './bootstrapHandleTest';
@@ -17,7 +17,7 @@ export default function() {
 
   bottle.factory('store', bootstrapStore);
 
-  bottle.factory('botService', bootstrapBotService);
+  bottle.factory('teamService', bootstrapTeamService);
 
   bottle.factory('handleListHouses', bootstrapHandleListHouses);
   bottle.factory('handleSort', bootstrapHandleSort);

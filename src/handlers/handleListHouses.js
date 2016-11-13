@@ -1,14 +1,23 @@
-import houses from 'src/mockData.js';
-
 export default class handleListHouses {
-  constructor(logger) {
+  constructor(teamService, logger) {
     this._logger = logger;
     this.handle = this.handle.bind(this);
+    this._teamService = teamService;
   }
 
   handle(bot, message) {
-    this._logger.info({ message });
+    const teamId = bot.team_info.id;
+    this._logger.info({ message, teamId });
 
-    bot.reply(message, JSON.stringify(houses));
+    this._teamService.listHouses(teamId).then(houses => {
+      this._logger.debug({ houses });
+
+      const response = houses.map(house => `${house.name} has ${house.points} points. Members: ${house.members.join(', ')}`);
+
+      bot.reply(message, response.join('\n'));
+    }).catch(error => {
+      this._logger.error({ error });
+      bot.reply(message, 'Something went wrong');
+    });
   }
 }
