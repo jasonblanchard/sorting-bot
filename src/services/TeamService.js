@@ -1,5 +1,7 @@
 import { Schema } from 'mongoose';
 
+const LOG_TAG = 'TeamService';
+
 const HouseSchema = new Schema({
   name: String,
   points: Number,
@@ -38,10 +40,10 @@ export default class TeamService {
   register(params) {
     this._model.findOne({ teamId: params.teamId }, (error, team) => {
       if (error) {
-        this._logger.error(error);
+        this._logger.error(error, LOG_TAG);
       }
 
-      this._logger.debug({ team });
+      this._logger.debug({ team }, LOG_TAG);
 
       if (!team) {
         const instance = new this._model(params);
@@ -54,11 +56,11 @@ export default class TeamService {
     return new Promise((resolve, reject) => {
       this._model.findOne({ teamId }, (error, team) => {
         if (error) {
-          this._logger.error(error);
+          this._logger.error(error, LOG_TAG);
           reject(error); // TODO: TeamServiceError
         }
 
-        this._logger.debug(team);
+        this._logger.debug({ team }, LOG_TAG);
 
         resolve(team.houses);
       });

@@ -1,5 +1,7 @@
 import houses from 'src/mockData';
 
+const LOG_TAG = 'HandleSort';
+
 export default class HandleSort {
   constructor(logger) {
     this._logger = logger;
@@ -7,7 +9,7 @@ export default class HandleSort {
   }
 
   handle(bot, message) {
-    this._logger.info({ message });
+    this._logger.info({ message }, LOG_TAG);
 
     const { match } = message;
     const user = match[1];

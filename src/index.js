@@ -3,11 +3,13 @@ import environment from 'dotenv';
 
 environment.config();
 
+const LOG_TAG = 'entrypoint';
+
 const registry = bootstrap();
 const { logger, app } = registry;
 
-logger.debug('\n>>> STARTING <<<\n');
+logger.debug('>>> STARTING <<<', LOG_TAG);
 
 app.start();
 
-logger.debug('\n>>> STARTED <<<\n');
+logger.debug('>>> STARTED <<<', LOG_TAG);

@@ -7,15 +7,19 @@ export default class LoggerService {
     logger.setLevel(loglevel);
   }
 
-  info(message) {
-    this._logger.info(message);
+  info(message, tag) {
+    this._logger.debug(LoggerService.format('INFO', message, tag));
   }
 
-  debug(message) {
-    this._logger.debug(message);
+  debug(message, tag) {
+    this._logger.debug(LoggerService.format('DEBUG', message, tag));
   }
 
-  error(message) {
-    this._logger.error(message);
+  error(message, tag) {
+    this._logger.error(LoggerService.format('ERROR', message, tag));
+  }
+
+  static format(level, message, tag) {
+    return `\n${level}: ${tag}\n${JSON.stringify(message, null, 2)}`;
   }
 }

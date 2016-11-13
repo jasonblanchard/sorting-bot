@@ -1,8 +1,10 @@
 import Botkit from 'botkit';
 
+const LOG_TAG = 'bootstrapApp';
+
 export default function(registry) {
   const { logger, teamService, handleTest, handleListHouses, handleSort } = registry;
-  logger.debug('\n>>> BOOTSTRAPPING <<<\n');
+  logger.debug('\n>>> BOOTSTRAPPING <<<\n', LOG_TAG);
 
   const MESSAGE_TYPES = ['direct_message', 'direct_mention'];
 
@@ -30,13 +32,13 @@ export default function(registry) {
   return {
     start: () => app.startRTM((error, bot) => {
       if (error) {
-        logger.error({ error, bot });
+        logger.error({ error, bot }, LOG_TAG);
         return;
       }
       const token = bot.config.token;
       const teamId = bot.team_info.id;
-      logger.debug({ bot: { token, teamId } });
-      teamService.register({ token, teamId });
+      logger.debug({ bot: { token, teamId } }, LOG_TAG);
+      teamService.register({ token, teamId }, LOG_TAG);
     }),
   };
 }
