@@ -1,12 +1,12 @@
-const LOG_TAG = 'HandleTest';
+const LOG_TAG = 'RespondTest';
 
-export default class HandleTest {
+export default class RespondTest {
   constructor(logger) {
     this._logger = logger;
-    this.handle = this.handle.bind(this);
+    this.respond = this.respond.bind(this);
   }
 
-  handle(bot, message) {
+  respond(bot, message) {
     try {
       this._logger.debug({ message }, LOG_TAG);
 

@@ -1,13 +1,13 @@
-const LOG_TAG = 'HandleListHouses';
+const LOG_TAG = 'RespondListHouses';
 
-export default class HandleListHouses {
+export default class RespondListHouses {
   constructor(teamService, logger) {
     this._logger = logger;
-    this.handle = this.handle.bind(this);
+    this.respond = this.respond.bind(this);
     this._teamService = teamService;
   }
 
-  handle(bot, message) {
+  respond(bot, message) {
     const teamId = bot.team_info.id;
     this._logger.info({ message, teamId }, LOG_TAG);
 

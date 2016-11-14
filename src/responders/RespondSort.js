@@ -1,13 +1,13 @@
-const LOG_TAG = 'HandleSort';
+const LOG_TAG = 'RespondSort';
 
-export default class HandleSort {
+export default class RespondSort {
   constructor(teamService, logger) {
     this._teamService = teamService;
     this._logger = logger;
-    this.handle = this.handle.bind(this);
+    this.respond = this.respond.bind(this);
   }
 
-  handle(bot, message) {
+  respond(bot, message) {
     this._logger.info({ message }, LOG_TAG);
 
     const { match } = message;

@@ -3,7 +3,7 @@ import Botkit from 'botkit';
 const LOG_TAG = 'bootstrapApp';
 
 export default function(registry) {
-  const { logger, teamService, handleTest, handleListHouses, handleSort } = registry;
+  const { logger, teamService, respondTest, respondListHouses, respondSort } = registry;
   logger.debug('\n>>> BOOTSTRAPPING <<<\n', LOG_TAG);
 
   const MESSAGE_TYPES = ['direct_message', 'direct_mention'];
@@ -12,11 +12,11 @@ export default function(registry) {
     debug: false,
   });
 
-  controller.hears('test', MESSAGE_TYPES, handleTest.handle);
-  controller.hears('sort (.+) (.+)', MESSAGE_TYPES, handleSort.handle);
-  controller.hears('list houses', MESSAGE_TYPES, handleListHouses.handle);
+  controller.hears('test', MESSAGE_TYPES, respondTest.respond);
+  controller.hears('sort (.+) (.+)', MESSAGE_TYPES, respondSort.respond);
+  controller.hears('list houses', MESSAGE_TYPES, respondListHouses.respond);
 
-  // award [number] point(s) to [user]
+  // award [number] point(s) to [house]
   // which house [user]
   // show points
   // show points for [house | user]
