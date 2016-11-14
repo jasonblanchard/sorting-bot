@@ -78,7 +78,7 @@ export default class TeamService {
 
         const houseIndex = team.houses.findIndex(house => house.name.toLowerCase() === houseName.toLowerCase());
 
-        this._model.findOneAndUpdate({ teamId }, { $addToSet: { [`houses.${houseIndex}.members`]: userId } }, (error, updatedTeam) => {
+        this._model.findOneAndUpdate({ teamId }, { $addToSet: { [`houses.${houseIndex}.members`]: userId } }, { new: true }, (error, updatedTeam) => {
           if (error) {
             this._logger.error(error, LOG_TAG);
             reject(error); // TODO: TeamServiceError
@@ -103,7 +103,7 @@ export default class TeamService {
 
         const houseIndex = team.houses.findIndex(house => house.name.toLowerCase() === houseName.toLowerCase());
 
-        this._model.findOneAndUpdate({ teamId }, { $inc: { [`houses.${houseIndex}.points`]: amount } }, (error, updatedTeam) => {
+        this._model.findOneAndUpdate({ teamId }, { $inc: { [`houses.${houseIndex}.points`]: amount } }, { new: true }, (error, updatedTeam) => {
           if (error) {
             this._logger.error(error, LOG_TAG);
             reject(error);
@@ -111,7 +111,7 @@ export default class TeamService {
 
           this._logger.debug({ updatedTeam }, LOG_TAG);
 
-          resolve(updatedTeam);
+          resolve(updatedTeam.houses[houseIndex].points);
         });
       });
     });
