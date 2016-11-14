@@ -1,7 +1,7 @@
 import HandleSort from 'src/handlers/HandleSort';
 
 export default function(registry) {
-  const { logger } = registry;
+  const { logger, teamService } = registry;
 
-  return new HandleSort(logger);
+  return new HandleSort(teamService, logger);
 }

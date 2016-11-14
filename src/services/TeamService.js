@@ -66,4 +66,29 @@ export default class TeamService {
       });
     });
   }
+
+  sortUser(teamId, userId, houseName) {
+    return new Promise((resolve, reject) => {
+      this._model.findOne({ teamId }, (error, team) => {
+        if (error) {
+          reject(error); // TODO: TeamServiceError
+        }
+
+        this._logger.debug({ team }, LOG_TAG);
+
+        const houseIndex = team.houses.findIndex(house => house.name.toLowerCase() === houseName.toLowerCase()); // TODO: downcase both;
+
+        this._model.findOneAndUpdate({ teamId }, { $addToSet: { [`houses.${houseIndex}.members`]: userId } }, (error, updatedTeam) => {
+          if (error) {
+            this._logger.error(error, LOG_TAG);
+            reject(error); // TODO: TeamServiceError
+          }
+
+          this._logger.debug({ updatedTeam }, LOG_TAG);
+
+          resolve(updatedTeam);
+        });
+      });
+    });
+  }
 }
