@@ -1,12 +1,13 @@
 import Bottle from 'bottlejs';
 
 import bootstrapApp from './bootstrapApp';
-import bootstrapTeamService from './bootstrapTeamService';
+import bootstrapLogger from './bootstrapLogger';
+import bootstrapRespondAwardPoints from './bootstrapRespondAwardPoints';
 import bootstrapRespondListHouses from './bootstrapRespondListHouses';
 import bootstrapRespondSort from './bootstrapRespondSort';
 import bootstrapRespondTest from './bootstrapRespondTest';
-import bootstrapLogger from './bootstrapLogger';
 import bootstrapStore from './bootstrapStore';
+import bootstrapTeamService from './bootstrapTeamService';
 
 export default function() {
   const bottle = new Bottle();
@@ -19,6 +20,7 @@ export default function() {
 
   bottle.factory('teamService', bootstrapTeamService);
 
+  bottle.factory('respondAwardPoints', bootstrapRespondAwardPoints);
   bottle.factory('respondListHouses', bootstrapRespondListHouses);
   bottle.factory('respondSort', bootstrapRespondSort);
   bottle.factory('respondTest', bootstrapRespondTest);
