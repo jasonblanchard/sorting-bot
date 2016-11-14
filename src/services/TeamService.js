@@ -15,12 +15,12 @@ const TeamSchema = new Schema({
     type: [HouseSchema],
     default: [
       {
-        name: 'slytherin',
+        name: 'Slytherin',
         members: [],
         points: 0,
       },
       {
-        name: 'gryffindor',
+        name: 'Gryffindor',
         members: [],
         points: 0,
       },
